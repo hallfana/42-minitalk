@@ -1,5 +1,7 @@
 NAME = minitalk
 
+all: server client
+
 server: server.c
 	gcc -Wall -Wextra -Werror server.c -o server
 
@@ -7,8 +9,6 @@ client: client.c
 	gcc -Wall -Wextra -Werror client.c -o client
 
 $(NAME): server client
-
-all: server client
 
 clean:
 	rm -f server client

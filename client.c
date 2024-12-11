@@ -6,7 +6,7 @@
 /*   By: samberna <samberna@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:09:32 by samberna          #+#    #+#             */
-/*   Updated: 2024/11/24 18:18:20 by samberna         ###   ########.fr       */
+/*   Updated: 2024/12/11 23:06:55 by samberna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,14 @@
 int	ft_atoi(const char *str)
 {
 	int	n;
-	int	sign;
 
 	n = 0;
-	sign = 1;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
 	while (*str >= '0' && *str <= '9')
 	{
 		n = n * 10 + *str - '0';
 		str++;
 	}
-	return (n * sign);
+	return (n);
 }
 
 void	send_char(int pid, char c)

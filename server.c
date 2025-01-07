@@ -74,7 +74,7 @@ void	handler(int signum)
 		if (c == '\0')
 		{
 			write(1, str, ft_strlen(str));
-			write(1, "\n", 1);Le serveur doit être lancé en premier et doit, après le lancement, afficher son
+			write(1, "\n", 1);
 			free(str);
 			str = NULL;
 		}

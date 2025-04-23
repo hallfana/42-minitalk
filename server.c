@@ -60,14 +60,21 @@ void	ft_putnbr(int n)
 	write(1, &c, 1);
 }
 
-void	handler(int signum)
+#include <stdio.h>
+void	handler(int signum, siginfo_t *info, void *ctx)
 {
 	static char	c = 0;
 	static int	i = 0;
 	static char	*str = NULL;
+	//static int client_pid = 0;
+	printf("sqd %d\n", info->si_pid);
+	(void)ctx;
+	//if (!client_pid)
+	//	client_pid = info->si_pid;
 
 	if (signum == SIGUSR1)
 		c |= 1 << i;
+	kill(info->si_pid, SIGUSR1);
 	i++;
 	if (i == 8)
 	{
@@ -87,13 +94,12 @@ void	handler(int signum)
 
 int	main(void)
 {
-	struct sigaction	sa;
+	struct sigaction	s_sigaction;
 
-	sa.sa_handler = handler;
-	sa.sa_flags = 0;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	s_sigaction.sa_sigaction = handler;
+	s_sigaction.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &s_sigaction, NULL);
+	sigaction(SIGUSR2, &s_sigaction, NULL);
 	write(1, BANNER0, ft_strlen(BANNER0));
 	write(1, BANNER1, ft_strlen(BANNER1));
 	write(1, BANNER2, ft_strlen(BANNER2));
